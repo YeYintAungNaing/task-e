@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: 1. Checkout Source Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 2. Build Docker Image
         run: docker build -t my-flask-app:v1 .
@@ -21,7 +21,7 @@ jobs:
           image: my-flask-app:v1
           format: cyclonedx-json
           output-file: sbom.json
-          artifact-name: ''
+          upload-artifact: false
 
       - name: 4. Enforce Vulnerability Policy (Trivy)
         uses: aquasecurity/trivy-action@master
