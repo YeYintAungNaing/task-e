@@ -21,6 +21,7 @@ jobs:
           image: my-flask-app:v1
           format: cyclonedx-json
           output-file: sbom.json
+          artifact-name: ''
 
       - name: 4. Enforce Vulnerability Policy (Trivy)
         uses: aquasecurity/trivy-action@master
@@ -32,7 +33,7 @@ jobs:
           severity: 'CRITICAL'    
 
       - name: 5. Export SBOM Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()              
         with:
           name: cyclonedx-sbom
