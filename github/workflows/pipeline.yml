@@ -1,0 +1,39 @@
+name: Task_E Compliance and Supply Chain
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-scan-export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: 2. Build Docker Image
+        run: docker build -t my-flask-app:v1 .
+
+      - name: 3. Generate CycloneDX SBOM (Syft)
+        uses: anchore/sbom-action@v0
+        with:
+          image: my-flask-app:v1
+          format: cyclonedx-json
+          output-file: sbom.json
+
+      - name: 4. Enforce Vulnerability Policy (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'sbom'
+          scan-ref: 'sbom.json'
+          format: 'table'
+          exit-code: '1'          
+          severity: 'CRITICAL'    
+
+      - name: 5. Export SBOM Artifact
+        uses: actions/upload-artifact@v4
+        if: always()              
+        with:
+          name: cyclonedx-sbom
+          path: sbom.json
