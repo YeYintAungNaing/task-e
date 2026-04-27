@@ -61,7 +61,7 @@ We will manually upload the artifact with a proper file name and structure.
 
 ---
 
-Uploaded artifact can be downloaded here. I also attached the ```sbom.json``` file at the root directory of this task-e folder.
+Uploaded artifact can be downloaded here. I also attached the downloaded ```sbom.json``` file at the root directory of this ```task_e``` folder.
 - #### SBOM_output
 ![](./screenshots/SBOM_output.png)
 
@@ -75,7 +75,7 @@ Python 3.9 and Flask 3.1.3, can be found in the ```sbom.json``` output, which me
 
 ## RV.1 - Respond to Vulnerabilities
 
-As mentioned in the previous section, SBOM output is explicitly configured as a CycloneDX JSON instead of a PDF. By explicitly configuring the pipeline to output the artifact using the ``` format: cyclonedx-json```, the SBOM is transformed into standardized, machine-readable data. As a result, it allows monitoring tool such as aqua trivy to programmatically ingest this output format.The result will be shown as a table format for easier reading ```format: 'table'```.
+As mentioned in the previous section, SBOM output is explicitly configured as a CycloneDX JSON instead of a PDF. By explicitly configuring the pipeline to output the artifact using the ```format: cyclonedx-json```, the SBOM is transformed into standardized, machine-readable data. As a result, it allows monitoring tool such as aqua trivy to programmatically ingest this output format.The result will be shown as a table format, ```format: 'table'```, for easier inspection.
   
 
 - #### Enforce Vulnerability Policy
@@ -88,7 +88,7 @@ As mentioned in the previous section, SBOM output is explicitly configured as a 
 
 ## RV.2 - Remediate Vulnerabilities
 
-Identifying a vulnerability provides no security value unless it is coupled with immediate remediation. As we can see on [Enforce Vulnerability Policy](#enforce-vulnerability-policy) section , the pipeline is configured so that it has a failure condition if it discovers vulnerability with a CRITICAL severity.
+Identifying a vulnerability provides no security value unless it is followed by immediate remediation. As we can see on [Enforce Vulnerability Policy](#enforce-vulnerability-policy) section , the pipeline is configured so that it has a failure condition if it discovers vulnerability with a ```CRITICAL``` severity.
 
 - #### Failed pipeline
 ![](./screenshots/failed_pipeline.png)
